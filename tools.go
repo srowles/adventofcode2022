@@ -80,18 +80,20 @@ func Slice[T any](data string, separator string, convert func(string) T) []T {
 	lines := strings.Split(strings.TrimSpace(data), separator)
 	var ret []T
 	for _, line := range lines {
+		line = strings.TrimSpace(line)
 		ret = append(ret, convert(line))
 	}
 
 	return ret
 }
 
-func Int(value string) int {
-	v, err := strconv.Atoi(value)
+func Int(value string) int64 {
+	i, err := strconv.ParseInt(value, 10, 64)
 	if err != nil {
 		panic(err)
 	}
-	return v
+
+	return i
 }
 
 // InputFromWebsite reads the AOC_SESSION env variable
