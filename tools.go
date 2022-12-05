@@ -143,17 +143,23 @@ func readStringData(reader io.Reader) string {
 
 type RuneStack []rune
 
+func NewRuneStack() RuneStack {
+	return make(RuneStack, 0)
+}
+
 func (s *RuneStack) IsEmpty() bool {
 	return len(*s) == 0
 }
 
-func (s *RuneStack) Push(str rune) {
-	*s = append(*s, str)
+func (s *RuneStack) Push(runes ...rune) {
+	for _, r := range runes {
+		*s = append(*s, r)
+	}
 }
 
 func (s *RuneStack) Pop() rune {
 	if s.IsEmpty() {
-		return 'z'
+		return '_'
 	} else {
 		index := len(*s) - 1
 		element := (*s)[index]
