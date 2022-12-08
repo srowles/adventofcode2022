@@ -32,7 +32,7 @@ func (d *dir) smallestDelete(size int) {
 	for _, sub := range d.subdirs {
 		s := sub.size()
 		if s > size {
-			smallest = aoc2022.Min([]int{smallest, s})
+			smallest = aoc2022.Min(smallest, s)
 		}
 		sub.smallestDelete(size)
 	}

@@ -22,6 +22,13 @@ func (c *Coord) Distance(b Coord) int {
 	return Abs(c.X-b.X) + Abs(c.Y-b.Y)
 }
 
+func (c *Coord) Move(direction Coord) Coord {
+	return Coord{
+		X: c.X + direction.X,
+		Y: c.Y + direction.Y,
+	}
+}
+
 // Abs returns the absolute (non negative) value of the input
 func Abs[T constraints.Integer | constraints.Float](x T) T {
 	if x < 0 {
@@ -31,7 +38,7 @@ func Abs[T constraints.Integer | constraints.Float](x T) T {
 }
 
 // Min returns the minimum value in the input slice
-func Min[T constraints.Ordered](in []T) T {
+func Min[T constraints.Ordered](in ...T) T {
 	if len(in) == 1 {
 		return in[0]
 	}
@@ -47,7 +54,7 @@ func Min[T constraints.Ordered](in []T) T {
 }
 
 // Max returns the maximum value in the input slice
-func Max[T constraints.Ordered](in []T) T {
+func Max[T constraints.Ordered](in ...T) T {
 	if len(in) == 1 {
 		return in[0]
 	}
