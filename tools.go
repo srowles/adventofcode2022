@@ -29,6 +29,13 @@ func (c *Coord) Move(direction Coord) Coord {
 	}
 }
 
+func (c *Coord) Diff(other Coord) Coord {
+	return Coord{
+		X: c.X - other.X,
+		Y: c.Y - other.Y,
+	}
+}
+
 // Abs returns the absolute (non negative) value of the input
 func Abs[T constraints.Integer | constraints.Float](x T) T {
 	if x < 0 {
