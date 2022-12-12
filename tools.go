@@ -76,6 +76,30 @@ func Max[T constraints.Ordered](in ...T) T {
 	return min
 }
 
+// greatest common divisor (GCD) via Euclidean algorithm
+func GCD[T constraints.Signed | constraints.Unsigned](a, b T) T {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+// find Least Common Multiple (LCM) via GCD
+func LCM[T constraints.Signed | constraints.Unsigned](integers ...T) T {
+	if len(integers) < 2 {
+		return integers[1]
+	}
+	result := integers[0] * integers[1] / GCD(integers[0], integers[1])
+
+	for i := 2; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
+}
+
 // Count returns an int of the number if values in the input
 // slice that return true when evaluated by countFn
 func Count[T any](in []T, countFn func(T) bool) int {
@@ -108,6 +132,15 @@ func Int(value string) int64 {
 	}
 
 	return i
+}
+
+func UInt(value string) uint64 {
+	i, err := strconv.ParseInt(value, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+
+	return uint64(i)
 }
 
 // InputFromWebsite reads the AOC_SESSION env variable
